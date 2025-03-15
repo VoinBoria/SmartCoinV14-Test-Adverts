@@ -696,96 +696,31 @@ fun MainScreen(
                         )
                         .padding(innerPadding)
                 ) {
-                    Column {
-                        AndroidView(factory = {
-                            adView
-                        }, modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp))
+                    BoxWithConstraints {
+                        val isWideScreen = maxWidth > 600.dp
 
-                        BoxWithConstraints {
-                            val isWideScreen = maxWidth > 600.dp
-
-                            if (isWideScreen) {
-                                Row(
+                        if (isWideScreen) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 32.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Column(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp, vertical = 32.dp),
-                                    horizontalArrangement = Arrangement.SpaceBetween
+                                        .widthIn(max = 400.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     Column(
                                         modifier = Modifier
-                                            .widthIn(max = 400.dp),
-                                        horizontalAlignment = Alignment.CenterHorizontally
+                                            .heightIn(max = 200.dp)
+                                            .verticalScroll(rememberScrollState())
                                     ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .widthIn(max = 400.dp)
-                                                .padding(vertical = 8.dp)
-                                                .clip(RoundedCornerShape(10.dp))
-                                                .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
-                                                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
-                                        ) {
-                                            ExpandableButtonWithAmount(
-                                                text = stringResource(id = R.string.incomes),
-                                                amount = totalIncomes,
-                                                gradientColors = listOf(
-                                                    Color.Transparent,
-                                                    Color.Transparent
-                                                ),
-                                                isExpanded = showIncomes,
-                                                onClick = { showIncomes = !showIncomes },
-                                                textColor = Color(0xFF00FF00),
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 18.sp,
-                                                currency = currency
-                                            )
-                                        }
-
-                                        if (showIncomes) {
-                                            Column(
-                                                modifier = Modifier
-                                                    .heightIn(max = 200.dp)
-                                                    .verticalScroll(rememberScrollState())
-                                            ) {
-                                                IncomeList(incomes = incomes, onCategoryClick = onIncomeCategoryClick, currency = currency)
-                                            }
-                                        }
-                                        Spacer(modifier = Modifier.height(16.dp))
-
-                                        Box(
-                                            modifier = Modifier
-                                                .widthIn(max = 400.dp)
-                                                .padding(vertical = 8.dp)
-                                                .clip(RoundedCornerShape(10.dp))
-                                                .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
-                                                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
-                                        ) {
-                                            ExpandableButtonWithAmount(
-                                                text = stringResource(id = R.string.expenses),
-                                                amount = totalExpenses,
-                                                gradientColors = listOf(
-                                                    Color.Transparent,
-                                                    Color.Transparent
-                                                ),
-                                                isExpanded = showExpenses,
-                                                onClick = { showExpenses = !showExpenses },
-                                                textColor = Color(0xFFFF0000),
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 18.sp,
-                                                currency = currency
-                                            )
-                                        }
-
-                                        if (showExpenses) {
-                                            Column(
-                                                modifier = Modifier
-                                                    .heightIn(max = 200.dp)
-                                                    .verticalScroll(rememberScrollState())
-                                            ) {
-                                                ExpensesList(expenses = expenses, onCategoryClick = onExpenseCategoryClick, currency = currency)
-                                            }
-                                        }
+                                        AndroidView(factory = {
+                                            adView
+                                        }, modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(50.dp))
                                     }
 
                                     Box(
@@ -793,7 +728,191 @@ fun MainScreen(
                                             .widthIn(max = 400.dp)
                                             .padding(vertical = 8.dp)
                                             .clip(RoundedCornerShape(10.dp))
-                                            .background(Color.Transparent, RoundedCornerShape(10.dp))
+                                            .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
+                                            .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
+                                    ) {
+                                        ExpandableButtonWithAmount(
+                                            text = stringResource(id = R.string.incomes),
+                                            amount = totalIncomes,
+                                            gradientColors = listOf(
+                                                Color.Transparent,
+                                                Color.Transparent
+                                            ),
+                                            isExpanded = showIncomes,
+                                            onClick = { showIncomes = !showIncomes },
+                                            textColor = Color(0xFF00FF00),
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp,
+                                            currency = currency
+                                        )
+                                    }
+
+                                    if (showIncomes) {
+                                        Column(
+                                            modifier = Modifier
+                                                .heightIn(max = 200.dp)
+                                                .verticalScroll(rememberScrollState())
+                                        ) {
+                                            IncomeList(incomes = incomes, onCategoryClick = onIncomeCategoryClick, currency = currency)
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.height(16.dp))
+
+                                    Box(
+                                        modifier = Modifier
+                                            .widthIn(max = 400.dp)
+                                            .padding(vertical = 8.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
+                                            .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
+                                    ) {
+                                        ExpandableButtonWithAmount(
+                                            text = stringResource(id = R.string.expenses),
+                                            amount = totalExpenses,
+                                            gradientColors = listOf(
+                                                Color.Transparent,
+                                                Color.Transparent
+                                            ),
+                                            isExpanded = showExpenses,
+                                            onClick = { showExpenses = !showExpenses },
+                                            textColor = Color(0xFFFF0000),
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp,
+                                            currency = currency
+                                        )
+                                    }
+
+                                    if (showExpenses) {
+                                        Column(
+                                            modifier = Modifier
+                                                .heightIn(max = 200.dp)
+                                                .verticalScroll(rememberScrollState())
+                                        ) {
+                                            ExpensesList(expenses = expenses, onCategoryClick = onExpenseCategoryClick, currency = currency)
+                                        }
+                                    }
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .widthIn(max = 400.dp)
+                                        .padding(vertical = 8.dp)
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(Color.Transparent, RoundedCornerShape(10.dp))
+                                        .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
+                                ) {
+                                    IncomeExpenseChart(
+                                        incomes = incomes,
+                                        expenses = expenses,
+                                        totalIncomes = totalIncomes,
+                                        totalExpenses = totalExpenses,
+                                        currency = currency
+                                    )
+                                }
+                            }
+                        } else {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 16.dp, vertical = 32.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .widthIn(max = 600.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .heightIn(max = 200.dp)
+                                            .verticalScroll(rememberScrollState())
+                                    ) {
+                                        AndroidView(factory = {
+                                            adView
+                                        }, modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(50.dp))
+                                    }
+
+                                    Box(
+                                        modifier = Modifier
+                                            .widthIn(max = 400.dp)
+                                            .padding(vertical = 8.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
+                                            .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
+                                    ) {
+                                        ExpandableButtonWithAmount(
+                                            text = stringResource(id = R.string.incomes),
+                                            amount = totalIncomes,
+                                            gradientColors = listOf(
+                                                Color.Transparent,
+                                                Color.Transparent
+                                            ),
+                                            isExpanded = showIncomes,
+                                            onClick = { showIncomes = !showIncomes },
+                                            textColor = Color(0xFF00FF00),
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp,
+                                            currency = currency
+                                        )
+                                    }
+
+                                    if (showIncomes) {
+                                        Column(
+                                            modifier = Modifier
+                                                .heightIn(max = 200.dp)
+                                                .verticalScroll(rememberScrollState())
+                                        ) {
+                                            IncomeList(incomes = incomes, onCategoryClick = onIncomeCategoryClick, currency = currency)
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.height(16.dp))
+
+                                    Box(
+                                        modifier = Modifier
+                                            .widthIn(max = 400.dp)
+                                            .padding(vertical = 8.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
+                                            .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
+                                    ) {
+                                        ExpandableButtonWithAmount(
+                                            text = stringResource(id = R.string.expenses),
+                                            amount = totalExpenses,
+                                            gradientColors = listOf(
+                                                Color.Transparent,
+                                                Color.Transparent
+                                            ),
+                                            isExpanded = showExpenses,
+                                            onClick = { showExpenses = !showExpenses },
+                                            textColor = Color(0xFFFF0000),
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp,
+                                            currency = currency
+                                        )
+                                    }
+
+                                    if (showExpenses) {
+                                        Column(
+                                            modifier = Modifier
+                                                .heightIn(max = 200.dp)
+                                                .verticalScroll(rememberScrollState())
+                                        ) {
+                                            ExpensesList(expenses = expenses, onCategoryClick = onExpenseCategoryClick, currency = currency)
+                                        }
+                                    }
+
+                                    Spacer(modifier = Modifier.height(32.dp))
+
+                                    Box(
+                                        modifier = Modifier
+                                            .widthIn(max = 400.dp)
+                                            .padding(vertical = 8.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
                                             .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
                                     ) {
                                         IncomeExpenseChart(
@@ -805,217 +924,116 @@ fun MainScreen(
                                         )
                                     }
                                 }
-                            } else {
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(horizontal = 16.dp, vertical = 32.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.SpaceBetween
-                                ) {
-                                    Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .widthIn(max = 600.dp),
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .widthIn(max = 400.dp)
-                                                .padding(vertical = 8.dp)
-                                                .clip(RoundedCornerShape(10.dp))
-                                                .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
-                                                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
-                                        ) {
-                                            ExpandableButtonWithAmount(
-                                                text = stringResource(id = R.string.incomes),
-                                                amount = totalIncomes,
-                                                gradientColors = listOf(
-                                                    Color.Transparent,
-                                                    Color.Transparent
-                                                ),
-                                                isExpanded = showIncomes,
-                                                onClick = { showIncomes = !showIncomes },
-                                                textColor = Color(0xFF00FF00),
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 18.sp,
-                                                currency = currency
-                                            )
-                                        }
-
-                                        if (showIncomes) {
-                                            Column(
-                                                modifier = Modifier
-                                                    .heightIn(max = 200.dp)
-                                                    .verticalScroll(rememberScrollState())
-                                            ) {
-                                                IncomeList(incomes = incomes, onCategoryClick = onIncomeCategoryClick, currency = currency)
-                                            }
-                                        }
-                                        Spacer(modifier = Modifier.height(16.dp))
-
-                                        Box(
-                                            modifier = Modifier
-                                                .widthIn(max = 400.dp)
-                                                .padding(vertical = 8.dp)
-                                                .clip(RoundedCornerShape(10.dp))
-                                                .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
-                                                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
-                                        ) {
-                                            ExpandableButtonWithAmount(
-                                                text = stringResource(id = R.string.expenses),
-                                                amount = totalExpenses,
-                                                gradientColors = listOf(
-                                                    Color.Transparent,
-                                                    Color.Transparent
-                                                ),
-                                                isExpanded = showExpenses,
-                                                onClick = { showExpenses = !showExpenses },
-                                                textColor = Color(0xFFFF0000),
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 18.sp,
-                                                currency = currency
-                                            )
-                                        }
-
-                                        if (showExpenses) {
-                                            Column(
-                                                modifier = Modifier
-                                                    .heightIn(max = 200.dp)
-                                                    .verticalScroll(rememberScrollState())
-                                            ) {
-                                                ExpensesList(expenses = expenses, onCategoryClick = onExpenseCategoryClick, currency = currency)
-                                            }
-                                        }
-
-                                        Spacer(modifier = Modifier.height(32.dp))
-
-                                        Box(
-                                            modifier = Modifier
-                                                .widthIn(max = 400.dp)
-                                                .padding(vertical = 8.dp)
-                                                .clip(RoundedCornerShape(10.dp))
-                                                .background(Color.Gray.copy(alpha = 0.2f), RoundedCornerShape(10.dp))
-                                                .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
-                                        ) {
-                                            IncomeExpenseChart(
-                                                incomes = incomes,
-                                                expenses = expenses,
-                                                totalIncomes = totalIncomes,
-                                                totalExpenses = totalExpenses,
-                                                currency = currency
-                                            )
-                                        }
-                                    }
-                                }
                             }
                         }
+                    }
 
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(start = 16.dp, bottom = 15.dp)
+                            .zIndex(0f),
+                        contentAlignment = Alignment.BottomStart
+                    ) {
+                        BalanceDisplay(balance = balance, currency = currency)
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .zIndex(0f)
+                    ) {
+                    }
+
+                    if (showAddExpenseTransactionDialog) {
+                        AddTransactionDialog(
+                            categories = expenseCategories,
+                            onDismiss = { showAddExpenseTransactionDialog = false },
+                            onSave = { transaction: Transaction ->
+                                val negativeTransaction = transaction.copy(amount = -transaction.amount) // Додаємо знак мінус до суми витрат
+                                viewModel.saveExpenseTransaction(context, negativeTransaction)
+                                viewModel.refreshExpenses()
+                                showAddExpenseTransactionDialog = false
+                            },
+                            onAddCategory = { newCategory ->
+                                viewModel.addExpenseCategory(newCategory)
+                            }
+                        )
+                    }
+
+                    if (showAddIncomeTransactionDialog) {
+                        IncomeAddIncomeTransactionDialog(
+                            categories = incomeCategories,
+                            onDismiss = { showAddIncomeTransactionDialog = false },
+                            onSave = { incomeTransaction ->
+                                viewModel.saveIncomeTransaction(context, incomeTransaction)
+                                viewModel.refreshIncomes()
+                                showAddIncomeTransactionDialog = false
+                            },
+                            onAddCategory = { newCategory ->
+                                viewModel.addIncomeCategory(newCategory)
+                            }
+                        )
+                    }
+
+                    if (settingsMenuVisible) {
+                        SettingsMenu(
+                            onDismiss = { settingsMenuVisible = false },
+                            onCurrencySelected = onCurrencySelected,
+                            onSaveSettings = onSaveSettings
+                        )
+                    }
+
+                    // Повідомлення
+                    AnimatedVisibility(
+                        visible = showMessage,
+                        enter = slideInVertically(
+                            initialOffsetY = { fullHeight -> fullHeight }
+                        ),
+                        exit = slideOutVertically(
+                            targetOffsetY = { fullHeight -> fullHeight }
+                        ),
+                        modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 100.dp)
+                    ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.BottomCenter
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                                .background(
+                                    if (showWarning) Color(0x80B22222) else Color(0x8000B22A),
+                                    RoundedCornerShape(8.dp)
+                                )
+                                .padding(16.dp)
                         ) {
-                            Column {
-                                Spacer(modifier = Modifier.weight(1f))
-                                AnimatedVisibility(
-                                    visible = showMessage,
-                                    enter = slideInVertically(
-                                        initialOffsetY = { fullHeight -> fullHeight }
-                                    ),
-                                    exit = slideOutVertically(
-                                        targetOffsetY = { fullHeight -> fullHeight }
-                                    ),
-                                    modifier = Modifier.padding(bottom = 100.dp)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.dp)
-                                            .background(
-                                                if (showWarning) Color(0x80B22222) else Color(0x8000B22A),
-                                                RoundedCornerShape(8.dp)
-                                            )
-                                            .padding(16.dp)
-                                    ) {
-                                        Text(
-                                            text = if (showWarning) stringResource(id = R.string.need_to_spend_less) else stringResource(id = R.string.on_the_right_track),
-                                            style = MaterialTheme.typography.bodyLarge.copy(
-                                                color = Color.White,
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                        )
-                                    }
-                                }
-                            }
+                            Text(
+                                text = if (showWarning) stringResource(id = R.string.need_to_spend_less) else stringResource(id = R.string.on_the_right_track),
+                                style = MaterialTheme.typography.bodyLarge.copy(
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
                         }
+                    }
 
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.BottomEnd
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(end = 16.dp, bottom = 16.dp)
+                    ) {
+                        FloatingActionButton(
+                            onClick = { showAddExpenseTransactionDialog = true },
+                            containerColor = Color(0xFFB22222),
+                            contentColor = Color.White
                         ) {
-                            Column {
-                                Spacer(modifier = Modifier.weight(1f))
-                                Row(
-                                    modifier = Modifier.padding(end = 16.dp, bottom = 16.dp)
-                                ) {
-                                    FloatingActionButton(
-                                        onClick = { showAddExpenseTransactionDialog = true },
-                                        containerColor = Color(0xFFB22222),
-                                        contentColor = Color.White
-                                    ) {
-                                        Icon(Icons.Default.Add, contentDescription = "Додати витрату")
-                                    }
-                                    Spacer(modifier = Modifier.width(16.dp))
-                                    FloatingActionButton(
-                                        onClick = { showAddIncomeTransactionDialog = true },
-                                        containerColor = Color(0xFF00B22A),
-                                        contentColor = Color.White
-                                    ) {
-                                        Icon(Icons.Default.Add, contentDescription = "Додати дохід")
-                                    }
-                                }
-                            }
+                            Icon(Icons.Default.Add, contentDescription = "Додати витрату")
                         }
-
-                        if (showAddExpenseTransactionDialog) {
-                            AddTransactionDialog(
-                                categories = expenseCategories,
-                                onDismiss = { showAddExpenseTransactionDialog = false },
-                                onSave = { transaction: Transaction ->
-                                    val negativeTransaction = transaction.copy(amount = -transaction.amount) // Додаємо знак мінус до суми витрат
-                                    viewModel.saveExpenseTransaction(context, negativeTransaction)
-                                    viewModel.refreshExpenses()
-                                    showAddExpenseTransactionDialog = false
-                                },
-                                onAddCategory = { newCategory ->
-                                    viewModel.addExpenseCategory(newCategory)
-                                }
-                            )
-                        }
-
-                        if (showAddIncomeTransactionDialog) {
-                            IncomeAddIncomeTransactionDialog(
-                                categories = incomeCategories,
-                                onDismiss = { showAddIncomeTransactionDialog = false },
-                                onSave = { incomeTransaction ->
-                                    viewModel.saveIncomeTransaction(context, incomeTransaction)
-                                    viewModel.refreshIncomes()
-                                    showAddIncomeTransactionDialog = false
-                                },
-                                onAddCategory = { newCategory ->
-                                    viewModel.addIncomeCategory(newCategory)
-                                }
-                            )
-                        }
-
-                        if (settingsMenuVisible) {
-                            SettingsMenu(
-                                onDismiss = { settingsMenuVisible = false },
-                                onCurrencySelected = onCurrencySelected,
-                                onSaveSettings = onSaveSettings
-                            )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        FloatingActionButton(
+                            onClick = { showAddIncomeTransactionDialog = true },
+                            containerColor = Color(0xFF00B22A),
+                            contentColor = Color.White
+                        ) {
+                            Icon(Icons.Default.Add, contentDescription = "Додати дохід")
                         }
                     }
                 }
