@@ -663,28 +663,36 @@ fun MainScreen(
     ) {
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = { Text(appTitle, color = Color.White) },
-                    navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = "Меню",
-                                tint = Color.White
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { settingsMenuVisible = true }) {
-                            Icon(
-                                imageVector = Icons.Default.Settings,
-                                contentDescription = stringResource(id = R.string.settings),
-                                tint = Color.White
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF121212))
-                )
+                Box {
+                    TopAppBar(
+                        title = { Text(appTitle, color = Color.White) },
+                        navigationIcon = {
+                            IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                                Icon(
+                                    imageVector = Icons.Default.Menu,
+                                    contentDescription = "Меню",
+                                    tint = Color.White
+                                )
+                            }
+                        },
+                        actions = {
+                            IconButton(onClick = { settingsMenuVisible = true }) {
+                                Icon(
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = stringResource(id = R.string.settings),
+                                    tint = Color.White
+                                )
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF121212))
+                    )
+                    AndroidView(factory = {
+                        adView
+                    }, modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .zIndex(1f))
+                }
             },
             content = { innerPadding ->
                 Box(
@@ -716,11 +724,6 @@ fun MainScreen(
                                             .heightIn(max = 200.dp)
                                             .verticalScroll(rememberScrollState())
                                     ) {
-                                        AndroidView(factory = {
-                                            adView
-                                        }, modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(50.dp))
                                     }
 
                                     Box(
@@ -829,11 +832,6 @@ fun MainScreen(
                                             .heightIn(max = 200.dp)
                                             .verticalScroll(rememberScrollState())
                                     ) {
-                                        AndroidView(factory = {
-                                            adView
-                                        }, modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(50.dp))
                                     }
 
                                     Box(
@@ -998,12 +996,11 @@ fun MainScreen(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                                .background(
-                                    if (showWarning) Color(0x80B22222) else Color(0x8000B22A),
-                                    RoundedCornerShape(8.dp)
-                                )
                                 .padding(16.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (showWarning) Color.Red else Color.Green)
+                                .padding(16.dp),
+                            contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = if (showWarning) stringResource(id = R.string.need_to_spend_less) else stringResource(id = R.string.on_the_right_track),
