@@ -929,7 +929,7 @@ fun MainScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(start = 16.dp, bottom = 15.dp)
+                            .padding(start = 16.dp)
                             .zIndex(0f),
                         contentAlignment = Alignment.BottomStart
                     ) {
