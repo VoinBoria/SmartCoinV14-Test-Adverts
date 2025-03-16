@@ -663,36 +663,38 @@ fun MainScreen(
     ) {
         Scaffold(
             topBar = {
-                Box {
-                    TopAppBar(
-                        title = { Text(appTitle, color = Color.White) },
-                        navigationIcon = {
-                            IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                                Icon(
-                                    imageVector = Icons.Default.Menu,
-                                    contentDescription = "Меню",
-                                    tint = Color.White
-                                )
-                            }
-                        },
-                        actions = {
-                            IconButton(onClick = { settingsMenuVisible = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.Settings,
-                                    contentDescription = stringResource(id = R.string.settings),
-                                    tint = Color.White
-                                )
-                            }
-                        },
-                        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF121212))
-                    )
-                    AndroidView(factory = {
-                        adView
-                    }, modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .zIndex(1f))
-                }
+                TopAppBar(
+                    title = {
+                        Box {
+                            AndroidView(factory = {
+                                adView
+                            }, modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                                .zIndex(1f))
+                            Text(appTitle, color = Color.White, modifier = Modifier.align(Alignment.CenterStart).zIndex(0f))
+                        }
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "Меню",
+                                tint = Color.White
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = { settingsMenuVisible = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = stringResource(id = R.string.settings),
+                                tint = Color.White
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF121212))
+                )
             },
             content = { innerPadding ->
                 Box(
