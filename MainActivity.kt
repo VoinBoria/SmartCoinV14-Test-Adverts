@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
 
         // Налаштування AdView
         adView = AdView(this).apply {
-            adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий Ad Unit ID
+            adUnitId = "ca-app-pub-4210607951563182/8872067553"
             setAdSize(AdSize.BANNER)
         }
 
