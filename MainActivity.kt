@@ -1020,19 +1020,19 @@ fun MainScreen(
                             .padding(end = 16.dp, bottom = 16.dp)
                     ) {
                         FloatingActionButton(
-                            onClick = { showAddExpenseTransactionDialog = true },
-                            containerColor = Color(0xFFB22222),
-                            contentColor = Color.White
-                        ) {
-                            Icon(Icons.Default.Add, contentDescription = "Додати витрату")
-                        }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        FloatingActionButton(
                             onClick = { showAddIncomeTransactionDialog = true },
                             containerColor = Color(0xFF00B22A),
                             contentColor = Color.White
                         ) {
                             Icon(Icons.Default.Add, contentDescription = "Додати дохід")
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        FloatingActionButton(
+                            onClick = { showAddExpenseTransactionDialog = true },
+                            containerColor = Color(0xFFB22222),
+                            contentColor = Color.White
+                        ) {
+                            Icon(Icons.Default.Add, contentDescription = "Додати витрату")
                         }
                     }
                 }
