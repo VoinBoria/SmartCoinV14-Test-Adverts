@@ -1000,7 +1000,7 @@ fun MainScreen(
                                 .fillMaxWidth()
                                 .padding(16.dp)
                                 .clip(RoundedCornerShape(8.dp))
-                                .background(if (showWarning) Color.Red else Color.Green)
+                                .background(if (showWarning) Color(0xFF8B0000).copy(alpha = 0.8f) else Color(0xFF006400).copy(alpha = 0.8f))
                                 .padding(16.dp),
                             contentAlignment = Alignment.Center
                         ) {
