@@ -69,11 +69,13 @@ import kotlinx.coroutines.Dispatchers
 import java.util.Locale
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.android.gms.ads.AdListener
 
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.LoadAdError
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -89,16 +91,41 @@ class MainActivity : ComponentActivity() {
         updateLocale(this, selectedLanguage)
 
         // Ініціалізація AdMob SDK
-        MobileAds.initialize(this) {}
+        MobileAds.initialize(this) { initializationStatus ->
+            Log.d("Ads", "SDK Initialization Status: $initializationStatus")
+        }
 
         // Налаштування AdView
         adView = AdView(this).apply {
-            adUnitId = "ca-app-pub-4210607951563182/8872067553"
+            adUnitId = "ca-app-pub-4210607951563182/4954821507" // Ідентифікатор рекламного блоку для банера
             setAdSize(AdSize.BANNER)
         }
 
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+
+        // Слухач реклами
+        adView.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                Log.d("Ads", "Ad Loaded")
+            }
+
+            override fun onAdFailedToLoad(adError : LoadAdError) {
+                Log.d("Ads", "Ad Failed to Load: ${adError.message}")
+            }
+
+            override fun onAdOpened() {
+                Log.d("Ads", "Ad Opened")
+            }
+
+            override fun onAdClicked() {
+                Log.d("Ads", "Ad Clicked")
+            }
+
+            override fun onAdClosed() {
+                Log.d("Ads", "Ad Closed")
+            }
+        }
 
         // Використовуйте новий API для керування вікном
         WindowCompat.setDecorFitsSystemWindows(window, false)
