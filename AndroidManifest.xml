@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:targetApi="33" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> <!-- Дозвіл на використання рекламного ідентифікатора -->
 
     <application
         android:allowBackup="true"
@@ -26,7 +27,7 @@
         <!-- Ініціалізація AdMob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/> <!-- Тестовий APPLICATION_ID -->
+            android:value="ca-app-pub-4210607951563182~4589971958"/> <!-- Реальний APPLICATION_ID -->
 
         <!-- MainActivity з темою заставки -->
         <activity
