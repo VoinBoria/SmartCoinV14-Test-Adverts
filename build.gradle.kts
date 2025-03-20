@@ -1,7 +1,10 @@
+import org.gradle.kotlin.dsl.testImplementation
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // Використовуйте Compose Compiler версії 2.0.0
+    id("com.google.gms.google-services")  // Додайте плагін Google Services
 }
 
 android {
@@ -12,8 +15,8 @@ android {
         applicationId = "com.serhio.homeaccountingapp"
         minSdk = 24
         targetSdk = 35
-        versionCode = 14
-        versionName = "14.0"
+        versionCode = 15
+        versionName = "15.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +38,10 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
+            // Додайте наступний рядок для включення символів налагодження
+            ndk {
+                debugSymbolLevel = "SYMBOL_TABLE"
+            }
         }
     }
 
@@ -84,7 +91,7 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
 
     // MPAndroidChart
-    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0") // Оновлення версії залежності
 
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
@@ -107,8 +114,14 @@ dependencies {
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
 
     // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.8.0")
+    implementation("androidx.work:work-runtime-ktx:2.10.0")
 
     // AdMob SDK
     implementation("com.google.android.gms:play-services-ads:24.1.0") // Використовуйте тільки цю залежність
+
+    // Firebase SDK
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // Використовуйте останню версію BoM
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 }
