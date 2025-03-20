@@ -76,6 +76,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.RequestConfiguration
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -95,9 +96,15 @@ class MainActivity : ComponentActivity() {
             Log.d("Ads", "SDK Initialization Status: $initializationStatus")
         }
 
+        // Налаштування тестових пристроїв
+        val requestConfiguration = RequestConfiguration.Builder()
+            .setTestDeviceIds(listOf("F7CD64AD58EF99B729B28EDCBB64F1EB"))
+            .build()
+        MobileAds.setRequestConfiguration(requestConfiguration)
+
         // Налаштування AdView
         adView = AdView(this).apply {
-            adUnitId = "ca-app-pub-4210607951563182/4954821507" // Ідентифікатор рекламного блоку для банера
+            adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий ідентифікатор рекламного блоку для банера
             setAdSize(AdSize.BANNER)
         }
 
