@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.testImplementation
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -114,13 +112,13 @@ dependencies {
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
 
     // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.10.0")
+    implementation("androidx.work:work-runtime-ktx:2.8.0")
 
     // AdMob SDK
     implementation("com.google.android.gms:play-services-ads:24.1.0") // Використовуйте тільки цю залежність
 
     // Firebase SDK
-    implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // Використовуйте останню версію BoM
+    implementation(platform("com.google.firebase:firebase-bom:31.0.0")) // Використовуйте останню версію BoM
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
