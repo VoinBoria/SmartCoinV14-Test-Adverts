@@ -70,13 +70,14 @@ import java.util.Locale
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.gms.ads.AdListener
-
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.RequestConfiguration
+import com.google.ads.mediation.facebook.FacebookMediationAdapter
+import com.google.ads.mediation.adcolony.AdColonyMediationAdapter
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -93,7 +94,11 @@ class MainActivity : ComponentActivity() {
 
         // Ініціалізація AdMob SDK
         MobileAds.initialize(this) { initializationStatus ->
-            Log.d("Ads", "SDK Initialization Status: $initializationStatus")
+            val statusMap = initializationStatus.adapterStatusMap
+            for ((adapterClass, status) in statusMap) {
+                Log.d("Ads", String.format("Adapter name: %s, Description: %s, Latency: %d",
+                    adapterClass, status.description, status.latency))
+            }
         }
 
         // Налаштування тестових пристроїв
@@ -103,7 +108,7 @@ class MainActivity : ComponentActivity() {
         MobileAds.setRequestConfiguration(requestConfiguration)
 
         // Налаштування AdView
-        adView = AdView(this).apply {
+        val adView = AdView(this).apply {
             adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий ідентифікатор рекламного блоку для банера
             setAdSize(AdSize.BANNER)
         }
@@ -117,7 +122,7 @@ class MainActivity : ComponentActivity() {
                 Log.d("Ads", "Ad Loaded")
             }
 
-            override fun onAdFailedToLoad(adError : LoadAdError) {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("Ads", "Ad Failed to Load: ${adError.message}")
             }
 
