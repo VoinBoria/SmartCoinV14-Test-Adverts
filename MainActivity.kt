@@ -78,11 +78,14 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.ads.mediation.facebook.FacebookMediationAdapter
 import com.google.ads.mediation.adcolony.AdColonyMediationAdapter
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var updateReceiver: BroadcastReceiver
     private lateinit var adView: AdView
+    private var interstitialAd: InterstitialAd? = null
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,7 +111,7 @@ class MainActivity : ComponentActivity() {
         MobileAds.setRequestConfiguration(requestConfiguration)
 
         // Налаштування AdView
-        val adView = AdView(this).apply {
+        adView = AdView(this).apply {
             adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий ідентифікатор рекламного блоку для банера
             setAdSize(AdSize.BANNER)
         }
@@ -138,6 +141,9 @@ class MainActivity : ComponentActivity() {
                 Log.d("Ads", "Ad Closed")
             }
         }
+
+        // Завантаження міжсторінкового оголошення
+        loadInterstitialAd()
 
         // Використовуйте новий API для керування вікном
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -275,12 +281,36 @@ class MainActivity : ComponentActivity() {
                     appTitle = appTitle,
                     showSettingsMenu = showSettingsMenu, // Ensure this parameter is passed
                     selectedLanguage = Locale.getDefault().language,
-                    onLanguageSelected = { language ->
+                    onLanguageSelected = {
                         // Language selection logic here
                     },
-                    adView = adView // Pass adView to MainScreen
+                    adView = adView, // Pass adView to MainScreen
+                    showInterstitialAd = ::showInterstitialAd // Pass showInterstitialAd function
                 )
             }
+        }
+    }
+
+    private fun loadInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                this@MainActivity.interstitialAd = interstitialAd
+                Log.d("Ads", "Interstitial Ad Loaded")
+            }
+
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                Log.d("Ads", "Interstitial Ad Failed to Load: ${loadAdError.message}")
+                this@MainActivity.interstitialAd = null
+            }
+        })
+    }
+
+    private fun showInterstitialAd() {
+        if (interstitialAd != null) {
+            interstitialAd?.show(this)
+        } else {
+            loadInterstitialAd()
         }
     }
 
@@ -646,7 +676,8 @@ fun MainScreen(
     refreshUI: () -> Unit,
     appTitle: String,
     showSettingsMenu: Boolean,
-    adView: AdView // Add adView parameter
+    adView: AdView, // Add adView parameter
+    showInterstitialAd: () -> Unit // Add parameter for showing interstitial ad
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -1002,6 +1033,7 @@ fun MainScreen(
                                 viewModel.saveExpenseTransaction(context, negativeTransaction)
                                 viewModel.refreshExpenses()
                                 showAddExpenseTransactionDialog = false
+                                showInterstitialAd() // Show interstitial ad
                             },
                             onAddCategory = { newCategory ->
                                 viewModel.addExpenseCategory(newCategory)
@@ -1017,6 +1049,7 @@ fun MainScreen(
                                 viewModel.saveIncomeTransaction(context, incomeTransaction)
                                 viewModel.refreshIncomes()
                                 showAddIncomeTransactionDialog = false
+                                showInterstitialAd() // Show interstitial ad
                             },
                             onAddCategory = { newCategory ->
                                 viewModel.addIncomeCategory(newCategory)
