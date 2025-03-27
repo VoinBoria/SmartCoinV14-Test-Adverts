@@ -187,12 +187,21 @@ class MainActivity : ComponentActivity() {
 
         val appTitle = stringResource(id = R.string.main_screen_title)
 
+        // Create AdView
+        val adView = remember {
+            AdView(context).apply {
+                setAdSize(AdSize.BANNER)
+                adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий ідентифікатор рекламного блоку
+                loadAd(AdRequest.Builder().build())
+            }
+        }
+
         if (showSplashScreen) {
             SplashScreen(onTimeout = {
                 showSplashScreen = false
             })
         } else {
-            Column {
+            Column(modifier = Modifier.fillMaxSize()) {
                 MainScreen(
                     onNavigateToMainActivity = {
                         val intent = Intent(context, MainActivity::class.java).apply {
