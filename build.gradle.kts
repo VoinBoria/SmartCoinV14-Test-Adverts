@@ -80,7 +80,7 @@ dependencies {
 
     // LiveData integration with Compose
     implementation("androidx.compose.runtime:runtime-livedata:1.7.8")
-    implementation("androidx.datastore:datastore-preferences:1.1.3")
+    implementation("androidx.datastore:datastore-preferences:1.1.4")
 
     // Navigation Component
     implementation("androidx.navigation:navigation-compose:2.8.9")
@@ -118,7 +118,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:24.1.0") // Використовуйте тільки цю залежність
 
     // Firebase SDK
-    implementation(platform("com.google.firebase:firebase-bom:33.10.0")) // Використовуйте останню версію BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.11.0")) // Використовуйте останню версію BoM
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
