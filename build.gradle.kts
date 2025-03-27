@@ -117,6 +117,10 @@ dependencies {
     // AdMob SDK
     implementation("com.google.android.gms:play-services-ads:24.1.0") // Використовуйте тільки цю залежність
 
+    // AdMob Mediation залежності для сторонніх рекламних мереж
+    implementation("com.google.ads.mediation:facebook:6.19.0.1") // Приклад залежності Mediation для Facebook
+    implementation("com.google.ads.mediation:adcolony:4.8.0.2") // Приклад залежності Mediation для AdColony
+
     // Firebase SDK
     implementation(platform("com.google.firebase:firebase-bom:33.11.0")) // Використовуйте останню версію BoM
     implementation("com.google.firebase:firebase-analytics-ktx")
