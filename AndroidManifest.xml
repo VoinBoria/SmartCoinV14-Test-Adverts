@@ -27,7 +27,7 @@
         <!-- Ініціалізація AdMob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4210607951563182~4589971958"/> <!-- Реальний APPLICATION_ID -->
+            android:value="ca-app-pub-3940256099942544~3347511713"/> <!-- Тестовий APPLICATION_ID -->
 
         <!-- Ініціалізація медіації AdMob -->
         <meta-data
