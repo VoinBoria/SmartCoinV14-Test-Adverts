@@ -851,7 +851,15 @@ fun TaskItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .background(Color(0xFF1E1E1E).copy(alpha = 0.8f))
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color.DarkGray.copy(alpha = 0.9f), // Темно-сірий зліва
+                        Color.DarkGray.copy(alpha = 0.1f)  // Майже прозорий справа
+                    )
+                ),
+                shape = RoundedCornerShape(8.dp)
+            )
             .padding(16.dp)
             .clickable { onEditTask(task) },
         verticalAlignment = Alignment.CenterVertically,
@@ -891,13 +899,17 @@ fun TaskItem(
                 )
             }
         }
-        Checkbox(
-            checked = task.isCompleted,
-            onCheckedChange = { onToggleCompletion(task) },
-            colors = CheckboxDefaults.colors(checkedColor = Color.Green)
-        )
-        IconButton(onClick = { onDeleteTask(task) }) {
-            Icon(imageVector = Icons.Default.Delete, contentDescription = stringResource(id = R.string.delete), tint = Color.White)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = task.isCompleted,
+                onCheckedChange = { onToggleCompletion(task) },
+                colors = CheckboxDefaults.colors(checkedColor = Color.Green)
+            )
+            IconButton(onClick = { onDeleteTask(task) }) {
+                Icon(imageVector = Icons.Default.Delete, contentDescription = stringResource(id = R.string.delete), tint = Color.White)
+            }
         }
     }
 }
