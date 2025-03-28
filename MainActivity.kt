@@ -112,7 +112,7 @@ class MainActivity : ComponentActivity() {
 
         // Налаштування AdView
         adView = AdView(this).apply {
-            adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий ідентифікатор рекламного блоку для банера
+            adUnitId = "ca-app-pub-4210607951563182/4954821507" // Реальний ідентифікатор рекламного блоку для банера
             setAdSize(AdSize.BANNER)
         }
 
@@ -202,7 +202,7 @@ class MainActivity : ComponentActivity() {
         val adView = remember {
             AdView(context).apply {
                 setAdSize(AdSize.BANNER)
-                adUnitId = "ca-app-pub-3940256099942544/6300978111" // Тестовий ідентифікатор рекламного блоку
+                adUnitId = "ca-app-pub-4210607951563182/4954821507" // Реальний ідентифікатор рекламного блоку для банера
                 loadAd(AdRequest.Builder().build())
             }
         }
@@ -293,7 +293,7 @@ class MainActivity : ComponentActivity() {
 
     private fun loadInterstitialAd() {
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, "ca-app-pub-4210607951563182/4392466720", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
                 this@MainActivity.interstitialAd = interstitialAd
                 Log.d("Ads", "Interstitial Ad Loaded")
